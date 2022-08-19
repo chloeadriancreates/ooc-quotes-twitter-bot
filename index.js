@@ -1,17 +1,7 @@
 import { rwClient } from './twitterClient.js';
+import { firebaseConfig } from './config.js';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get, push, update } from "firebase/database";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCpJtR-dqEROxc7CtsSb_-BX_o9chKP7NM",
-    authDomain: "cast-party-quotes.firebaseapp.com",
-    databaseURL: "https://cast-party-quotes-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "cast-party-quotes",
-    storageBucket: "cast-party-quotes.appspot.com",
-    messagingSenderId: "999937059505",
-    appId: "1:999937059505:web:f08f485fd4e4d70836d090",
-    measurementId: "G-7Y1YY3LFQV"
-};
 
 const app = initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase());
