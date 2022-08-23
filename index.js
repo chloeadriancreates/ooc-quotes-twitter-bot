@@ -6,46 +6,44 @@ import { getDatabase, ref, child, get, push, update } from "firebase/database";
 const app = initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase());
 
-const tweet = async (quotes, arrayLength) => {
-    const random = Math.floor(Math.random() * arrayLength);
-    const keyRandom = Object.keys(quotes)[random];
-    console.log(quotes);
-    console.log(quotes[keyRandom]);
+async function getQuotes() {
+    const response = await get(child(dbRef, 'quotes/not_tweeted'));
+    const quotes = await response.val();
+    return quotes;
+}
+
+async function tweet(quotes) {
+    const random = Math.floor(Math.random() * quotes.length);
+    const randomKey = Object.keys(quotes)[random];
     try {
-        await rwClient.v2.tweet(quotes[keyRandom]);
+        await rwClient.v2.tweet(quotes[randomKey]);
         const newKey = push(child(dbRef, 'quotes/tweeted')).key;
         const updates = {};
-        updates[`quotes/tweeted/${newKey}`] = quotes[keyRandom];
-        updates[`quotes/not_tweeted/${keyRandom}`] = null;
+        updates[`quotes/tweeted/${newKey}`] = quotes[randomKey];
+        updates[`quotes/not_tweeted/${randomKey}`] = null;
         update(dbRef, updates);
     } catch(e) {
         console.error(e);
     }
 }
 
-function start() {
-    get(child(dbRef, 'counter')).then((snapshot) => {
-        console.log(snapshot.val());
-        if(snapshot.val() == 1) {
-            get(child(dbRef, 'quotes/not_tweeted')).then((snapshot) => {
-                if(snapshot.val()) {
-                    const length = Object.keys(snapshot.val()).length;
-                    tweet(snapshot.val(), length);
-                }
-                const updates = {};
-                const newCounter = 0;
-                updates['counter'] = newCounter;
-                update(dbRef, updates);
-            }).catch((error) => {
-                console.error(error);
-            });
-        } else {
-            const updates = {};
-            const newCounter = snapshot.val() + 1;
-            updates['counter'] = newCounter;
-            update(dbRef, updates);
-        }
-    })
+function updateCounter(value) {
+    const updates = {};
+    const newCounter = value;
+    updates['counter'] = newCounter;
+    update(dbRef, updates);
+}
+
+async function start() {
+    const response = await get(child(dbRef, 'counter'));
+    const currentCounter = await response.val();
+    if(currentCounter == 1) {
+        const quotes = await getQuotes();
+        tweet(quotes);
+        updateCounter(0);
+    } else {
+        updateCounter(currentCounter + 1);
+    }
 }
 
 start();
