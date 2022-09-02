@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chloeadriancreates/cast-party-quotes.git"
+    "url": " git@github.com:chloeadriancreates/cast-party-quotes-twitter-bot.git"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/chloeadriancreates/cast-party-quotes#readme",
   "dependencies": {
+    "cron": "^2.1.0",
     "firebase": "^9.8.1",
     "twitter-api-v2": "^1.12.0"
   },

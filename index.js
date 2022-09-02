@@ -2,6 +2,7 @@ import { rwClient } from './twitterClient.js';
 import { firebaseConfig } from './config.js';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get, push, update } from "firebase/database";
+import { CronJob } from 'cron';
 
 const app = initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase());
@@ -27,23 +28,17 @@ async function tweet(quotes) {
     }
 }
 
-function updateCounter(value) {
-    const updates = {};
-    const newCounter = value;
-    updates['counter'] = newCounter;
-    update(dbRef, updates);
+export async function startQuotes() {
+    const quotes = await getQuotes();
+    tweet(quotes);
 }
 
-async function start() {
-    const response = await get(child(dbRef, 'counter'));
-    const currentCounter = await response.val();
-    if(currentCounter == 1) {
-        const quotes = await getQuotes();
-        tweet(quotes);
-        updateCounter(0);
-    } else {
-        updateCounter(currentCounter + 1);
-    }
-}
-
-start();
+// const job = new CronJob(
+// 	'0 */4 * * *',
+// 	function() {
+// 		startQuotes();
+// 	},
+// 	null,
+// 	true,
+// 	'America/Los_Angeles'
+// );
