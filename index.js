@@ -28,17 +28,17 @@ async function tweet(quotes) {
     }
 }
 
-export async function startQuotes() {
+async function startQuotes() {
     const quotes = await getQuotes();
     tweet(quotes);
 }
 
-// const job = new CronJob(
-// 	'0 */4 * * *',
-// 	function() {
-// 		startQuotes();
-// 	},
-// 	null,
-// 	true,
-// 	'America/Los_Angeles'
-// );
+const job = new CronJob(
+	'0 */4 * * *',
+	function() {
+		startQuotes();
+	},
+	null,
+	true,
+	'America/Los_Angeles'
+);
