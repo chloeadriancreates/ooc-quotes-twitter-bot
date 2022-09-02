@@ -9,5 +9,10 @@ You can find the previous version on the v1 branch – the core is the same, but
 ### Firebase
 I used a Realtime Database, because I only needed a small place to store two lists of quotes (tweeted and not tweeted). You can see the layout of the database in quotes.json!
 
-Thanks for reading! I hope you have a great day.
+### Cron
+You may have noticed that the Cron job in index.js is commented – this is because my bots are all hosted on the same server, and I have a single file that runs all the Cron jobs there. However, for the sake of clarity, I decided to do separate Git repositories and add the extra code in comments.
+
+I really love making these bots, and even though having to switch from Heroku (who are sadly cancelling their free plan from November onwards) was a bummer, I really think the code for this version is cleaner, and I'm ultimately very happy about it.
+
+Thanks for reading, and happy coding! I hope you have a great day.
 Chloé x
