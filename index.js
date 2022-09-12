@@ -8,20 +8,21 @@ const app = initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase());
 
 async function getQuotes() {
-    const response = await get(child(dbRef, 'quotes/not_tweeted'));
+    const response = await get(child(dbRef, 'quotes'));
     const quotes = await response.val();
     return quotes;
 }
 
 async function tweet(quotes) {
-    const random = Math.floor(Math.random() * quotes.length);
-    const randomKey = Object.keys(quotes)[random];
+    const notTweeted = quotes["not_tweeted"];
+    const tweeted = quotes["tweeted"];
+    const random = Math.floor(Math.random() * notTweeted.length);
     try {
-        await rwClient.v2.tweet(quotes[randomKey]);
-        const newKey = push(child(dbRef, 'quotes/tweeted')).key;
+        await rwClient.v2.tweet(notTweeted[random]);
         const updates = {};
-        updates[`quotes/tweeted/${newKey}`] = quotes[randomKey];
-        updates[`quotes/not_tweeted/${randomKey}`] = null;
+        updates[`quotes/tweeted`] = [...tweeted, notTweeted[random]];
+        notTweeted.splice(random, 1);
+        updates[`quotes/not_tweeted`] = notTweeted;
         update(dbRef, updates);
     } catch(e) {
         console.error(e);
