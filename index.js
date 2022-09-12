@@ -1,7 +1,7 @@
 import { rwClient } from './twitterClient.js';
 import { firebaseConfig } from './config.js';
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, child, get, push, update } from "firebase/database";
+import { getDatabase, ref, child, get, update } from "firebase/database";
 import { CronJob } from 'cron';
 
 const app = initializeApp(firebaseConfig);
@@ -29,7 +29,7 @@ async function tweet(quotes) {
     }
 }
 
-async function startQuotes() {
+export async function startQuotes() {
     const quotes = await getQuotes();
     tweet(quotes);
 }
