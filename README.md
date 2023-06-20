@@ -1,15 +1,16 @@
-# Out of context Cast Party Twitter bot - V2
+![NodeJS](https://img.shields.io/badge/-NodeJS-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=react&logoColor=black)
+![Twitter](https://img.shields.io/badge/-Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)
+![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
-Hello! This is the code for a Twitter bot I made that tweets a random quote from *Cast Party: a Dungeons & Dragons podcast* every four hours. The account is [@castpartyquotes](https://twitter.com/castpartyquotes), if you want to give it a look! I really recommend the show, it is one of the most heartfelt and funniest podcasts I know. 
+# Out of context quotes Twitter bot
 
-## Now, for the tech stack! 
-This version of the bot was made using Javascript, the twitter-api-v2 and cron packages, and Firebase. 
-You can find the previous version on the v1 branch – the core is the same, but I switched from using Heroku Scheduler to another hosting service and the cron package.
+The goal of this bot was to tweet quotes from a [podcast](https://castparty.carrd.co/) every four hours. The Twitter account it tweeted from is no longer up, but the code lives on here, as I am still very proud of it! 
 
-### Firebase
-I used a Realtime Database, because I only needed a small place to store two lists of quotes (tweeted and not tweeted). You can see the layout of the database in quotes.json!
+## Tech stack
+- [Firebase](https://firebase.google.com/)
+- [The twitter-api-v2 package](https://www.npmjs.com/package/twitter-api-v2)
+- [The cron package](https://www.npmjs.com/package/cron)
 
-I really love making these bots, and even though having to switch from Heroku (who are sadly cancelling their free plan from November onwards) was a bummer, I really think the code for this version is cleaner, and I'm ultimately very happy about it.
-
-Thanks for reading, and happy coding! I hope you have a great day.
-Chloé x
+## Thanks for reading, and happy coding!  
+Chloé Adrian
